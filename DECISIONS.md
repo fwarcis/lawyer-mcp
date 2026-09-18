@@ -63,3 +63,16 @@ MCP tool. Удалённый transport и многопользовательск
 **Источники.** [Teable create records](https://help.teable.ai/en/api-doc/record/create),
 [Teable update record](https://help.teable.ai/en/api-doc/record/update),
 [Teable delete records](https://help.teable.ai/en/api-doc/record/delete).
+
+## Начальная capability-поверхность и режимы
+
+**Решение.** До утверждения владельцем минимальных обязательных полей и остальных
+`[U]`-правил MCP остаётся read-only: поиск клиентов и чтение карточки по `rec...`.
+Запись, удаление, вложения и schema/View operations отсутствуют. Имена и
+нечувствительные статусы возвращаются по явному allowlist; PII-поля требуют
+`DOSSIER_ALLOW_PII_READ=1`. `DOSSIER_MODE` обязателен (`development|demo`), а demo
+должен работать от отдельного OS-пользователя с отдельными credentials и runtime-dir.
+
+**Почему.** Контракт прямо помечает минимальную бизнес-обязательность полей как `[U]`
+и требует fail-closed writes. Read API Teable документирует `fieldKeyType=id`, projection
+и pagination; это достаточно для узкой безопасной демонстрации без недокументированных
